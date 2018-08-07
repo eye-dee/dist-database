@@ -1,0 +1,23 @@
+server:
+    port: 6060
+    login-server:
+        port: 7777
+spring:
+    jpa:
+      properties:
+        hibernate:
+          temp:
+            use_jdbc_metadata_defaults: false
+      hibernate:
+        ddl-auto: validate
+    datasource:
+        url: jdbc:postgresql://0.0.0.0:5432/renaissance
+        driver-class-name: org.postgresql.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+        username: renaissance
+        password: renaissance
+        hikari:
+            maximumPoolSize: 200
+            minimumIdle: 5
+            username: renaissance
+            password: renaissance
