@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 service postgresql start
 /usr/bin/java -jar /usr/share/server/database.jar
