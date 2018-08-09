@@ -1,6 +1,5 @@
 package igc.dist.database.handler;
 
-import com.google.protobuf.GeneratedMessageV3;
 import igc.dist.proto.Connection.MessageAccepted;
 import io.netty.channel.ChannelHandlerContext;
 import org.springframework.stereotype.Service;

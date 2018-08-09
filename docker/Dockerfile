@@ -22,7 +22,11 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
 RUN apt-get update
 RUN echo "Europe \ Moscow" | apt-get install -y postgresql
 
+RUN apt-get install sudo
+
 COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY ./libs/dist-database-1.0-SNAPSHOT.jar /usr/share/server/database.jar
+
+EXPOSE 5432
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

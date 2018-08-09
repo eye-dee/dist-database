@@ -15,18 +15,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HandlerConfig {
 
-    @Bean
-    public Map<Class, PacketHandler> handlers(final List<PacketHandler> packetHandlerList) {
-        return packetHandlerList.stream()
-                .collect(Collectors.toMap(
-                        v -> getGenericParameterFromClass(v.getClass(), 0),
-                        Function.identity(),
-                        (v1, v2) -> {
-                            log.warn("Two equivalent classes {} and {}",
-                                    v1.getClass().getName(), v2.getClass().getName());
-                            return v1;
-                        }
-                ));
-    }
+  @Bean
+  public Map<Class, PacketHandler> handlers(final List<PacketHandler> packetHandlerList) {
+    return packetHandlerList.stream()
+        .collect(Collectors.toMap(
+            v -> getGenericParameterFromClass(v.getClass(), 0),
+            Function.identity(),
+            (v1, v2) -> {
+              log.warn("Two equivalent classes {} and {}",
+                  v1.getClass().getName(), v2.getClass().getName());
+              return v1;
+            }
+        ));
+  }
 
 }

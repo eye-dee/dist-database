@@ -13,37 +13,37 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 class DatabasePacketHandler extends SimpleChannelInboundHandler<Object> {
 
-    private final Executor handlerExecutor;
-    private final Map<Class, PacketHandler> handlers;
+  private final Executor handlerExecutor;
+  private final Map<Class, PacketHandler> handlers;
 
-    @Override
-    protected void messageReceived(ChannelHandlerContext ctx, Object msg) {
-        final PacketHandler handler = handlers.get(msg.getClass());
+  @Override
+  protected void messageReceived(ChannelHandlerContext ctx, Object msg) {
+    final PacketHandler handler = handlers.get(msg.getClass());
 
-        if (!(msg instanceof GeneratedMessageV3)) {
-            log.error("msg is not instance of GeneratedMessageV3, but {}", msg.getClass());
-            return;
-        }
-
-        if (handler != null) {
-            handlerExecutor.execute(() ->
-                handleMessageWithMetrics(ctx, (GeneratedMessageV3) msg, handler));
-        } else {
-            log.error("Handler is null for class {}", msg.getClass().getName());
-        }
+    if (!(msg instanceof GeneratedMessageV3)) {
+      log.error("msg is not instance of GeneratedMessageV3, but {}", msg.getClass());
+      return;
     }
 
-    @SuppressWarnings("unchecked")
-    private void handleMessageWithMetrics(
-            final ChannelHandlerContext ctx, final GeneratedMessageV3 msg, final PacketHandler handler) {
-        handler.handle(msg, ctx);
+    if (handler != null) {
+      handlerExecutor.execute(() ->
+          handleMessageWithMetrics(ctx, (GeneratedMessageV3) msg, handler));
+    } else {
+      log.error("Handler is null for class {}", msg.getClass().getName());
     }
+  }
 
-    @Override
-    public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
-        log.error("Packet handler error, going to close connection.", cause);
-        ctx.close();
-    }
+  @SuppressWarnings("unchecked")
+  private void handleMessageWithMetrics(
+      final ChannelHandlerContext ctx, final GeneratedMessageV3 msg, final PacketHandler handler) {
+    handler.handle(msg, ctx);
+  }
+
+  @Override
+  public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
+    log.error("Packet handler error, going to close connection.", cause);
+    ctx.close();
+  }
 
 
 }

@@ -13,17 +13,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProtocolEncoder extends MessageToMessageEncoder<GeneratedMessageV3> {
 
-    private final Map<Class, Integer> messages;
+  private final Map<Class, Integer> messages;
 
-    @Override
-    protected void encode(final ChannelHandlerContext ctx, final GeneratedMessageV3 msg,
-                          final List<Object> out) {
+  @Override
+  protected void encode(final ChannelHandlerContext ctx, final GeneratedMessageV3 msg,
+      final List<Object> out) {
 
-        final Integer messageId = messages.get(msg.getClass());
-        if (messageId != null) {
-            out.add(Unpooled.wrappedBuffer(messageToBytes(messageId, msg.toByteArray())));
-        } else {
-            throw new RuntimeException("Not found");
-        }
+    final Integer messageId = messages.get(msg.getClass());
+    if (messageId != null) {
+      out.add(Unpooled.wrappedBuffer(messageToBytes(messageId, msg.toByteArray())));
+    } else {
+      throw new RuntimeException("Not found");
     }
+  }
 }

@@ -1,5 +1,8 @@
 server:
     port: 6060
+    gateway:
+      host: gateway
+      port: 7775
     login-server:
         port: 7777
 spring:
@@ -11,13 +14,13 @@ spring:
       hibernate:
         ddl-auto: validate
     datasource:
-        url: jdbc:postgresql://0.0.0.0:5432/renaissance
+        url: jdbc:postgresql://0.0.0.0:5432/igcdist
         driver-class-name: org.postgresql.Driver
         type: com.zaxxer.hikari.HikariDataSource
-        username: renaissance
-        password: renaissance
+        username: igcdist
+        password: igcdist
         hikari:
             maximumPoolSize: 200
             minimumIdle: 5
-            username: renaissance
-            password: renaissance
+            username: igcdist
+            password: igcdist

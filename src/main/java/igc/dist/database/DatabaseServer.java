@@ -13,10 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class DatabaseServer extends AbstractServer {
 
-    public DatabaseServer(@Value("${server.login-server.port:7777}") final int port,
-                       final DatabaseServerInitializer databaseServerInitializer) {
-        super(port, new NioEventLoopGroup(1), new NioEventLoopGroup(),
-                databaseServerInitializer, new LoggingHandler(LogLevel.INFO), NioServerSocketChannel.class);
-    }
+  public DatabaseServer(
+      @Value("${server.login-server.port:7777}") final int serverPort,
+      @Value("${server.gateway.port:7775}") final int gatewayPort,
+      @Value("${server.gateway.host:gateway}") final String gatewayHost,
+      final DatabaseServerInitializer databaseServerInitializer) {
+    super(serverPort, gatewayPort, gatewayHost, new NioEventLoopGroup(4), new NioEventLoopGroup(),
+        databaseServerInitializer, new LoggingHandler(LogLevel.INFO), NioServerSocketChannel.class);
+  }
 
 }

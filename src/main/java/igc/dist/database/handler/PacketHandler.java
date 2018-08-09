@@ -5,5 +5,5 @@ import io.netty.channel.ChannelHandlerContext;
 
 public interface PacketHandler<T extends GeneratedMessageV3> {
 
-    void handle(T packet, ChannelHandlerContext ctx);
+  void handle(T packet, ChannelHandlerContext ctx);
 }
