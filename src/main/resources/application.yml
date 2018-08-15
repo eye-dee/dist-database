@@ -1,5 +1,5 @@
 server:
-    port: 6060
+    port: 7070
     gateway:
       host: gateway
       port: 7775
