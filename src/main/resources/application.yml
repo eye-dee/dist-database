@@ -2,9 +2,9 @@ server:
     port: 7070
     gateway:
       host: gateway
-      port: 7775
+      port: 6666
     login-server:
-        port: 7777
+        port: 6060
 spring:
     jpa:
       properties:
@@ -14,7 +14,7 @@ spring:
       hibernate:
         ddl-auto: validate
     datasource:
-        url: jdbc:postgresql://0.0.0.0:5432/igcdist
+        url: jdbc:postgresql://localhost:5432/igcdist
         driver-class-name: org.postgresql.Driver
         type: com.zaxxer.hikari.HikariDataSource
         username: igcdist

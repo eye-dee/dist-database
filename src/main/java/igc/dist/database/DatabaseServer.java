@@ -15,7 +15,7 @@ public class DatabaseServer extends AbstractServer {
 
   public DatabaseServer(
       @Value("${server.login-server.port:7777}") final int serverPort,
-      @Value("${server.gateway.port:7775}") final int gatewayPort,
+      @Value("${server.gateway.port:6666}") final int gatewayPort,
       @Value("${server.gateway.host:gateway}") final String gatewayHost,
       final DatabaseServerInitializer databaseServerInitializer) {
     super(serverPort, gatewayPort, gatewayHost, new NioEventLoopGroup(4), new NioEventLoopGroup(),
