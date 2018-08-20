@@ -1,5 +1,6 @@
 package igc.dist.database;
 
+import igc.dist.database.network.DatabaseGatewayConnectorInitializer;
 import igc.dist.database.network.DatabaseServerInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -17,9 +18,10 @@ public class DatabaseServer extends AbstractServer {
       @Value("${server.login-server.port:7777}") final int serverPort,
       @Value("${server.gateway.port:6666}") final int gatewayPort,
       @Value("${server.gateway.host:gateway}") final String gatewayHost,
-      final DatabaseServerInitializer databaseServerInitializer) {
+      final DatabaseServerInitializer databaseServerInitializer,
+      final DatabaseGatewayConnectorInitializer gatewayConnectorInitializer) {
     super(serverPort, gatewayPort, gatewayHost, new NioEventLoopGroup(4), new NioEventLoopGroup(),
-        databaseServerInitializer, new LoggingHandler(LogLevel.INFO), NioServerSocketChannel.class);
+        databaseServerInitializer, gatewayConnectorInitializer, new LoggingHandler(LogLevel.INFO), NioServerSocketChannel.class);
   }
 
 }

@@ -1,5 +1,6 @@
 package igc.dist.database;
 
+import igc.dist.database.network.DatabaseGatewayConnectorInitializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
@@ -25,6 +26,7 @@ public abstract class AbstractServer implements Server {
   private final EventLoopGroup bossGroup;
   private final EventLoopGroup workerGroup;
   private final ChannelInitializer<SocketChannel> serverInitializer;
+  private final ChannelInitializer<SocketChannel> gatewayConnectorInitializer;
   private final ChannelHandler channelHandler;
   private final Class<? extends ServerChannel> serverChannel;
 
@@ -46,7 +48,7 @@ public abstract class AbstractServer implements Server {
       var connectFuture = new Bootstrap().group(workerGroup)
           .channel(NioSocketChannel.class)
           .option(ChannelOption.TCP_NODELAY, true)
-          .handler(serverInitializer)
+          .handler(gatewayConnectorInitializer)
           .connect(gatewayHost, gatewayPort);
 
       connectFuture.sync();

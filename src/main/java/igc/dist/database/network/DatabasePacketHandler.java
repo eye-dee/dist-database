@@ -2,6 +2,7 @@ package igc.dist.database.network;
 
 import com.google.protobuf.GeneratedMessageV3;
 import igc.dist.database.handler.PacketHandler;
+import igc.dist.proto.Register.RegistrationRequest;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import java.util.Map;
