@@ -27,6 +27,8 @@ RUN apt-get install sudo
 COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY ./libs/dist-database-1.0-SNAPSHOT.jar /usr/share/server/database.jar
 
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 EXPOSE 5432
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
