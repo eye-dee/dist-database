@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,13 +23,19 @@ public class DatabaseGatewayConnectorInitializer extends ChannelInitializer<Sock
   private final ExecutorService packetHandlerExecutor = Executors.newFixedThreadPool(8);
   private final Map<Class, PacketHandler> handlers;
 
+  @Value("${server.server.port:7777}")
+  private int serverPort;
+  @Value("${server.server.host:7777}")
+  private String host;
+
+
   @Override
   protected void initChannel(final SocketChannel ch) {
     var pipeline = ch.pipeline();
     pipeline
         .addLast("protocolDecoder", new ProtocolDecoder(MESSAGES))
         .addLast("protocolEncoder", new ProtocolEncoder(MESSAGE_IDS))
-        .addLast("gatewayConnector", new GatewayConnector())
+        .addLast("gatewayConnector", new GatewayConnector(host, serverPort))
         .addLast("loginPacketHandler", new DatabasePacketHandler(packetHandlerExecutor, handlers));
   }
 }

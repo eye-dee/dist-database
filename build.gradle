@@ -43,7 +43,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
 
 task buildDocker(type: DockerBuildImage, dependsOn: build) {
     inputDir = buildDir
-    tag = 'igc/database:latest'
+    tag = 'igc/database:latest7771'
 }
 
 buildDocker.dependsOn(copyDockerfile, build)

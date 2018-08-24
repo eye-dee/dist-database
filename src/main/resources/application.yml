@@ -3,8 +3,9 @@ server:
     gateway:
       host: gateway
       port: 6666
-    login-server:
-        port: 6060
+    server:
+        port: 7771
+        host: localhost
 spring:
     jpa:
       properties:

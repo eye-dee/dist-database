@@ -20,8 +20,9 @@ public class ChooseDatabaseHandler implements PacketHandler<ChooseDatabase> {
     ctx.writeAndFlush(MessageAccepted.newBuilder().build());
   }
 
-  private static enum Status {
+  public enum Status {
     WAITING,
+    USED,
     EXPIRED
   }
 }

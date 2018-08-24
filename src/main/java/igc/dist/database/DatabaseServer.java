@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class DatabaseServer extends AbstractServer {
 
   public DatabaseServer(
-      @Value("${server.login-server.port:7777}") final int serverPort,
+      @Value("${server.server.port:7777}") final int serverPort,
       @Value("${server.gateway.port:6666}") final int gatewayPort,
       @Value("${server.gateway.host:gateway}") final String gatewayHost,
       final DatabaseServerInitializer databaseServerInitializer,
