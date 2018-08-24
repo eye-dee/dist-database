@@ -6,6 +6,8 @@ import igc.dist.database.handler.ChooseDatabaseHandler.Status;
 import igc.dist.proto.Connection.CreateConnection;
 import igc.dist.proto.Connection.MessageAccepted;
 import io.netty.channel.ChannelHandlerContext;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class CreateConnectionHandler implements PacketHandler<CreateConnection> {
 
+  public static final Map<String, ChannelHandlerContext> USER_CONNECTIONS = new ConcurrentHashMap<>();
+
   @Override
   public void handle(CreateConnection packet, ChannelHandlerContext ctx) {
     var newStatus = STATUS_MAP.computeIfPresent(packet.getToken(), (t, s) -> {
       if (s == Status.WAITING) {
+        log.info("token = {}", t);
+        USER_CONNECTIONS.putIfAbsent(t, ctx);
+        log.info("user connections = {}", USER_CONNECTIONS);
         return Status.USED;
       } else {
         return s;

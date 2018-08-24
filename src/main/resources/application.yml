@@ -4,7 +4,7 @@ server:
       host: gateway
       port: 6666
     server:
-        port: 7771
+        port: 7772
         host: localhost
 spring:
     jpa:
