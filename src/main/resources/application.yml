@@ -1,0 +1,27 @@
+server:
+    port: 7070
+    gateway:
+      host: gateway
+      port: 6666
+    server:
+        port: 7772
+        host: localhost
+spring:
+    jpa:
+      properties:
+        hibernate:
+          temp:
+            use_jdbc_metadata_defaults: false
+      hibernate:
+        ddl-auto: validate
+    datasource:
+        url: jdbc:postgresql://localhost:5432/igcdist
+        driver-class-name: org.postgresql.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+        username: igcdist
+        password: igcdist
+        hikari:
+            maximumPoolSize: 200
+            minimumIdle: 5
+            username: igcdist
+            password: igcdist
