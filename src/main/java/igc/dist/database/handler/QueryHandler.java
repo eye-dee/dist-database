@@ -24,21 +24,14 @@ public class QueryHandler implements PacketHandler<InternalQueryRequest> {
 
   @Override
   public void handle(InternalQueryRequest query, ChannelHandlerContext ctx) {
-    log.info("internal query {}", query);
-    log.info("current map {}", USER_CONNECTIONS);
     var token = query.getToken();
     var context = Optional.ofNullable(USER_CONNECTIONS.get(token));
 
     if (query.getQueryType() == QueryType.READ) {
-      log.info("go read");
       var res = jdbcTemplate.queryForList(query.getQuery());
 
       try {
         var rawString = objectMapper.writeValueAsString(res);
-        log.info("raw string {}", rawString);
-        ctx.writeAndFlush(QueryResponse.newBuilder()
-            .setResult(rawString)
-            .build());
         context.ifPresentOrElse(c -> c.writeAndFlush(QueryResponse.newBuilder()
             .setResult(rawString)
             .build()), () -> log.info("null context"));

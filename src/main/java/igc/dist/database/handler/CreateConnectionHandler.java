@@ -21,9 +21,7 @@ public class CreateConnectionHandler implements PacketHandler<CreateConnection> 
   public void handle(CreateConnection packet, ChannelHandlerContext ctx) {
     var newStatus = STATUS_MAP.computeIfPresent(packet.getToken(), (t, s) -> {
       if (s == Status.WAITING) {
-        log.info("token = {}", t);
         USER_CONNECTIONS.putIfAbsent(t, ctx);
-        log.info("user connections = {}", USER_CONNECTIONS);
         return Status.USED;
       } else {
         return s;
